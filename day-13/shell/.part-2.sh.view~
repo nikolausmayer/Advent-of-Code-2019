@@ -1,0 +1,21 @@
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+argglobal
+if bufexists('/opt/playground/advent-of-code/2019/13/shell/part-2.sh') | buffer /opt/playground/advent-of-code/2019/13/shell/part-2.sh | else | edit /opt/playground/advent-of-code/2019/13/shell/part-2.sh | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+silent! normal! zE
+let s:l = 20 - ((19 * winheight(0) + 18) / 36)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+20
+normal! 040|
+let &so = s:so_save | let &siso = s:siso_save
+doautoall SessionLoadPost
+" vim: set ft=vim :
