@@ -118,6 +118,54 @@ public:
         m_pos += 2;
         break;
       }
+      /// Jump if true
+      case 5: {
+        auto& a = opcode.a ? imm(m_pos+1) : pos(m_pos+1);
+        auto& b = opcode.b ? imm(m_pos+2) : pos(m_pos+2);
+        if (a != 0) {
+          m_pos = b;
+        } else {
+          m_pos += 3;
+        }
+        break;
+      }
+      /// Jump if false
+      case 6: {
+        auto& a = opcode.a ? imm(m_pos+1) : pos(m_pos+1);
+        auto& b = opcode.b ? imm(m_pos+2) : pos(m_pos+2);
+        if (a == 0) {
+          m_pos = b;
+        } else {
+          m_pos += 3;
+        }
+        break;
+      }
+      /// less than
+      case 7: {
+        auto& a = opcode.a ? imm(m_pos+1) : pos(m_pos+1);
+        auto& b = opcode.b ? imm(m_pos+2) : pos(m_pos+2);
+        auto& target = pos(m_pos+3);
+        if (a < b) {
+          target = 1;
+        } else {
+          target = 0;
+        }
+        m_pos += 4;
+        break;
+      }
+      /// equals
+      case 8: {
+        auto& a = opcode.a ? imm(m_pos+1) : pos(m_pos+1);
+        auto& b = opcode.b ? imm(m_pos+2) : pos(m_pos+2);
+        auto& target = pos(m_pos+3);
+        if (a == b) {
+          target = 1;
+        } else {
+          target = 0;
+        }
+        m_pos += 4;
+        break;
+      }
       /// Stop
       case 99: {
         return State::finished;
